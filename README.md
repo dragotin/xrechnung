@@ -10,6 +10,8 @@ XRechnung documents can be created by the software [Kraft](https://volle-kraft-v
 
 XRView is a Qt based viewer for the Desktop that renders XRechnung XML documents. It uses the official XSL stylesheets provided in [the repository](https://github.com/itplr-kosit/xrechnung-visualization) of the [Koordinierungsstelle für IT-Standards](https://www.xoev.de/). 
 
+![XRView screenshot](/xrview/screenshot1.png?raw=true&s=200 "Screenshot")
+
 Beside the rendering, it also extracts some important data from the XML and displays them in the overview pane.
 
 ### Configuration

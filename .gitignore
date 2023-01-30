@@ -50,3 +50,12 @@ compile_commands.json
 
 # QtCreator local machine specific files for imported projects
 *creator.user*
+
+# Manual build artifacts
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+xrview_autogen/
+
+# We don't want to commit the built binary
+xrview

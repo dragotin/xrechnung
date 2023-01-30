@@ -39,11 +39,14 @@ XRechnung::XRechnung(QObject *parent)
 
 }
 
-XRechnung::XRechnung(const QUrl& file, QObject *parent)
+XRechnung::XRechnung(const QUrl& file, const QString& SaxonJar, const QString& XslUBL, const QString& XslHtml, QObject *parent)
     : QObject{parent},
       _url(file)
 {
-    createUbl();
+	this->SaxonJar = SaxonJar;
+	this->XslUBL = XslUBL;
+	this->XslHtml = XslHtml;
+	createUbl();
 }
 
 QString XRechnung::html() const

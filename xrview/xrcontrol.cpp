@@ -21,6 +21,7 @@
 #include "xrechnung.h"
 
 #include <QFileInfo>
+#include <QDebug>
 
 XRControl::XRControl(QObject *parent)
     : QObject{parent}
@@ -28,15 +29,21 @@ XRControl::XRControl(QObject *parent)
 
 }
 
-void XRControl::registerFiles( const QList<QUrl> list)
+void XRControl::registerFiles( const QList<QUrl> list, const QSettings *settings)
 {
     if (! list.size()) return;
+
+    QString SaxonJar = settings->value(QString("saxon/jar")).toString();
+    QString XslHtml = settings->value(QString("saxon/xslHtml")).toString();
+    QString XslUBL = settings->value(QString("saxon/xslUbl")).toString();
+
+    qDebug() << "Xsl: " << XslUBL;
 
     for (const QUrl& url : list ) {
         QFileInfo fi(url.toLocalFile());
 
         if (fi.exists() && fi.isReadable() && fi.size()) {
-            XRechnung *xr = new XRechnung(url, this);
+            XRechnung *xr = new XRechnung(url, SaxonJar, XslUBL, XslHtml, this);
             _xrList.append(xr);
             emit showXRechnung(xr);
         }

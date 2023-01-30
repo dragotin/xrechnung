@@ -31,7 +31,7 @@ class XRechnung : public QObject
 public:
     explicit XRechnung(QObject *parent = nullptr);
 
-    XRechnung(const QUrl& file, QObject *parent = nullptr);
+    XRechnung(const QUrl& file, const QString& SaxonJar, const QString& XslUBL, const QString& XslHtml, QObject *parent = nullptr);
     QDomDocument domDocument() const;
 
     QString html() const;
@@ -56,9 +56,9 @@ private:
     QString      _html;
     QDomDocument _domDoc;
 
-    const QString SaxonJar{"/home/kf/projects/xrech2html/saxon-he-11.4.jar"};
-    const QString XslUBL{"/home/kf/projects/xrechnung-visualization/src/xsl/ubl-invoice-xr.xsl"};
-    const QString XslHtml{"/home/kf/projects/xrechnung-visualization/src/xsl/xrechnung-html.xsl"};
+    QString SaxonJar;
+    QString XslUBL;
+    QString XslHtml;
 };
 
 #endif // XRECHNUNG_H

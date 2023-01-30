@@ -25,6 +25,9 @@
 #include <QTranslator>
 #include <QUrl>
 #include <QObject>
+#include <QDebug>
+#include <QSettings>
+#include <QStandardPaths>
 
 int main(int argc, char *argv[])
 {
@@ -41,6 +44,13 @@ int main(int argc, char *argv[])
     parser.addPositionalArgument(QString::fromLatin1("xrechnung"), QLatin1String("List of xrechnung"), QString::fromLatin1("[xrechnung...]"));
     parser.process(app);
 
+	// read config file
+	// TODO: handle case when the config can't be found
+	QString configFilePath = QStandardPaths::locate(QStandardPaths::ConfigLocation, QString("xrview/xrview.ini"));
+	qDebug() << "Config file found at: " << configFilePath;
+	QSettings settings(configFilePath, QSettings::IniFormat);
+
+
     // get the list of images to load on startup:
     QList<QUrl> filesList;
 
@@ -54,7 +64,7 @@ int main(int argc, char *argv[])
     // This connection cares for displaying the XRechnung.
     QObject::connect(&xrc, &XRControl::showXRechnung, &w, &MainWindow::slotShowXRechnung);
 
-    xrc.registerFiles(filesList);
+    xrc.registerFiles(filesList, &settings);
 
     w.show();
     return app.exec();

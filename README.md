@@ -6,6 +6,8 @@ This repository is young and the tools are in very early stage. It is a start to
 
 XRechnung documents can be created by the software [Kraft](https://volle-kraft-voraus.de) ([Github repo](https://github.com/dragotin/kraft)).
 
+Samples can be found in the [xrechnung-testsuite repository on projekte.kosit.org](https://projekte.kosit.org/xrechnung/xrechnung-testsuite/-/tree/master/).
+
 ## XRView
 
 XRView is a Qt based viewer for the Desktop that renders XRechnung XML documents. It uses the official XSL stylesheets provided in [the repository](https://github.com/itplr-kosit/xrechnung-visualization) of the [Koordinierungsstelle für IT-Standards](https://www.xoev.de/). 
@@ -16,7 +18,7 @@ Beside the rendering, it also extracts some important data from the XML and disp
 
 ### Configuration
 
-To run XRView a *configuration file* has to be manually created first. Create a file in the users home directory in the local configuration directory, usually in `$HOME/.config/xrview/XRView.conf`.
+To run XRView a *configuration file* has to be manually created first. Create a file in the users home directory in the local configuration directory, usually in `$HOME/.config/xrview/xrview.conf`.
 
 The config file has to look like:
 

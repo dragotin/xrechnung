@@ -23,6 +23,7 @@
 #include "xrechnung.h"
 
 #include <QObject>
+#include <QSettings>
 
 class XRControl : public QObject
 {
@@ -30,7 +31,7 @@ class XRControl : public QObject
 public:
     explicit XRControl(QObject *parent = nullptr);
 
-    void registerFiles( const QList<QUrl> list);
+    void registerFiles( const QList<QUrl> list, const QSettings *settings);
 
 signals:
     void showXRechnung(XRechnung*);

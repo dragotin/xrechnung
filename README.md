@@ -18,7 +18,7 @@ Beside the rendering, it also extracts some important data from the XML and disp
 
 ### Configuration
 
-To run XRView a *configuration file* has to be manually created first. Create a file in the users home directory in the local configuration directory, usually in `$HOME/.config/xrview/xrview.conf`.
+To run XRView a *configuration file* has to be manually created first. Create a file in the users home directory in the local configuration directory, usually in `$HOME/.config/xrview/xrview.ini`.
 
 The config file has to look like:
 

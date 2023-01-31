@@ -101,11 +101,8 @@ void XRechnung::slotErrorOccurred(QProcess::ProcessError error)
     }
 }
 
-void XRechnung::slotDomFinished(int exitCode, QProcess::ExitStatus exitStatus)
+void XRechnung::slotDomFinished(int /*exitCode*/, QProcess::ExitStatus /*exitStatus*/)
 {
-    Q_UNUSED(exitStatus)
-    Q_UNUSED(exitCode)
-
     QProcess *p = qobject_cast<QProcess*>(sender());
 
     qDebug() << "stderr output: " << p->readAllStandardError();
@@ -137,11 +134,8 @@ void XRechnung::createHtml()
     process->start("java", args);
 }
 
-void XRechnung::slotHtmlFinished(int exitCode, QProcess::ExitStatus exitStatus)
+void XRechnung::slotHtmlFinished(int /*exitCode*/, QProcess::ExitStatus /*exitStatus*/)
 {
-    Q_UNUSED(exitStatus)
-    Q_UNUSED(exitCode)
-
     QProcess *p = qobject_cast<QProcess*>(sender());
 
     qDebug() << "stderr output: " << p->readAllStandardError();

@@ -86,8 +86,7 @@ void XRechnung::createUbl()
 
     QProcess *process = new QProcess;
 
-    connect(process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
-                this, &XRechnung::slotDomFinished);
+    connect(process, &QProcess::finished, this, &XRechnung::slotDomFinished);
     connect(process, &QProcess::errorOccurred, this, &XRechnung::slotErrorOccurred);
 
     qDebug() << "Starting" << "java" << args;
@@ -130,8 +129,7 @@ void XRechnung::createHtml()
 
     QProcess *process = new QProcess;
 
-    connect(process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
-                this, &XRechnung::slotHtmlFinished);
+    connect(process, &QProcess::finished, this, &XRechnung::slotHtmlFinished);
 
     connect(process, &QProcess::errorOccurred, this, &XRechnung::slotErrorOccurred);
 

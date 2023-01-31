@@ -12,6 +12,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets WebEngineWidgets Xml)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets WebEngineWidgets Xml)
 
+# Be sure to show deprecation messages and disable deprecated Qt5 code in Qt-headers
+add_definitions(-DQT_DEPRECATED_WARNINGS_SINCE=0x70000 -DQT_DISABLE_DEPRECATED_BEFORE=0x50f02)
+
 set(PROJECT_SOURCES
         main.cpp
         xrcontrol.cpp

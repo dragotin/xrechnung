@@ -74,14 +74,15 @@ QDomDocument XRechnung::domDocument() const
 
 void XRechnung::createUbl()
 {
-    QStringList args;
-    QString file{ _url.toLocalFile() };
+    const QString file{ _url.toLocalFile() };
 
-    args.append("-jar");
-    args.append(SaxonJar);
-    args.append(QString("-s:%1").arg(file));
-    args.append(QString("-xsl:%1").arg(XslUBL));
-    args.append(QString("-o:%1").arg(ublFileName(_url)));
+    const QStringList args{
+        "-jar", 
+        SaxonJar,
+        QString("-s:%1").arg(file),
+        QString("-xsl:%1").arg(XslUBL),
+        QString("-o:%1").arg(ublFileName(_url)),
+    };
 
     QProcess *process = new QProcess;
 
@@ -118,13 +119,14 @@ void XRechnung::slotDomFinished(int exitCode, QProcess::ExitStatus exitStatus)
 
 void XRechnung::createHtml()
 {
-    QStringList args;
     QString file{ _url.toLocalFile() };
 
-    args.append("-jar");
-    args.append(SaxonJar);
-    args.append(QString("-s:%1").arg(ublFileName(_url)));
-    args.append(QString("-xsl:%1").arg(XslHtml));
+    const QStringList args{
+        "-jar",
+        SaxonJar,
+        QString("-s:%1").arg(ublFileName(_url)),
+        QString("-xsl:%1").arg(XslHtml),
+    };
 
     QProcess *process = new QProcess;
 

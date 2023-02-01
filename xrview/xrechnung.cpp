@@ -76,7 +76,6 @@ QDomDocument XRechnung::domDocument() const
 
 void XRechnung::createUbl()
 {
-    QStringList args;
     QString file{ _url.toLocalFile() };
     QSettings config;
 

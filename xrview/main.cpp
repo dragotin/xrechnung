@@ -25,6 +25,7 @@
 #include <QTranslator>
 #include <QUrl>
 #include <QObject>
+#include <QDebug>
 
 int main(int argc, char *argv[])
 {

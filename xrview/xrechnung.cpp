@@ -83,16 +83,17 @@ void XRechnung::createUbl()
     const QString saxJar = config.value("saxon/jar").toString();
     const QString xslUBL = config.value("saxon/xslUbl").toString();
 
-    args.append("-jar");
-    args.append(saxJar);
-    args.append(QString("-s:%1").arg(file));
-    args.append(QString("-xsl:%1").arg(xslUBL));
-    args.append(QString("-o:%1").arg(ublFileName(_url)));
+    const QStringList args {
+        "-jar", 
+        saxJar,
+        QString("-s:%1").arg(file),
+        QString("-xsl:%1").arg(xslUBL),
+        QString("-o:%1").arg(ublFileName(_url)),
+     };
 
     QProcess *process = new QProcess;
 
-    connect(process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
-                this, &XRechnung::slotDomFinished);
+    connect(process, &QProcess::finished, this, &XRechnung::slotDomFinished);
     connect(process, &QProcess::errorOccurred, this, &XRechnung::slotErrorOccurred);
 
     qDebug() << "Starting" << "java" << args;
@@ -107,11 +108,8 @@ void XRechnung::slotErrorOccurred(QProcess::ProcessError error)
     }
 }
 
-void XRechnung::slotDomFinished(int exitCode, QProcess::ExitStatus exitStatus)
+void XRechnung::slotDomFinished(int /*exitCode*/, QProcess::ExitStatus /*exitStatus*/)
 {
-    Q_UNUSED(exitStatus)
-    Q_UNUSED(exitCode)
-
     QProcess *p = qobject_cast<QProcess*>(sender());
 
     qDebug() << "stderr output: " << p->readAllStandardError();
@@ -124,22 +122,22 @@ void XRechnung::slotDomFinished(int exitCode, QProcess::ExitStatus exitStatus)
 
 void XRechnung::createHtml()
 {
-    QStringList args;
     QString file{ _url.toLocalFile() };
     QSettings config;
 
     const QString saxJar = config.value("saxon/jar").toString();
     const QString xslHtml = config.value("saxon/xslHtml").toString();
 
-    args.append("-jar");
-    args.append(saxJar);
-    args.append(QString("-s:%1").arg(ublFileName(_url)));
-    args.append(QString("-xsl:%1").arg(xslHtml));
+    const QStringList args {
+        "-jar",
+        saxJar,
+        QString("-s:%1").arg(ublFileName(_url)),
+        QString("-xsl:%1").arg(xslHtml),
+    };
 
     QProcess *process = new QProcess;
 
-    connect(process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
-                this, &XRechnung::slotHtmlFinished);
+    connect(process, &QProcess::finished, this, &XRechnung::slotHtmlFinished);
 
     connect(process, &QProcess::errorOccurred, this, &XRechnung::slotErrorOccurred);
 
@@ -147,11 +145,8 @@ void XRechnung::createHtml()
     process->start("java", args);
 }
 
-void XRechnung::slotHtmlFinished(int exitCode, QProcess::ExitStatus exitStatus)
+void XRechnung::slotHtmlFinished(int /*exitCode*/, QProcess::ExitStatus /*exitStatus*/)
 {
-    Q_UNUSED(exitStatus)
-    Q_UNUSED(exitCode)
-
     QProcess *p = qobject_cast<QProcess*>(sender());
 
     qDebug() << "stderr output: " << p->readAllStandardError();

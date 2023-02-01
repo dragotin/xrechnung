@@ -40,8 +40,10 @@ public slots:
 
 private slots:
     void slotShowDocumentNo(int);
+    void checkConfig();
 
 private:
+
     Ui::MainWindow *ui;
     QVector<XRechnung*> _xrs;
     int _maxIndx;

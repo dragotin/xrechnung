@@ -22,6 +22,8 @@
 
 #include <QFile>
 #include <QProcess>
+#include <QDateTime>
+#include <QSettings>
 
 namespace {
 
@@ -76,11 +78,15 @@ void XRechnung::createUbl()
 {
     QStringList args;
     QString file{ _url.toLocalFile() };
+    QSettings config;
+
+    const QString saxJar = config.value("saxon/jar").toString();
+    const QString xslUBL = config.value("saxon/xslUbl").toString();
 
     args.append("-jar");
-    args.append(SaxonJar);
+    args.append(saxJar);
     args.append(QString("-s:%1").arg(file));
-    args.append(QString("-xsl:%1").arg(XslUBL));
+    args.append(QString("-xsl:%1").arg(xslUBL));
     args.append(QString("-o:%1").arg(ublFileName(_url)));
 
     QProcess *process = new QProcess;
@@ -120,11 +126,15 @@ void XRechnung::createHtml()
 {
     QStringList args;
     QString file{ _url.toLocalFile() };
+    QSettings config;
+
+    const QString saxJar = config.value("saxon/jar").toString();
+    const QString xslHtml = config.value("saxon/xslHtml").toString();
 
     args.append("-jar");
-    args.append(SaxonJar);
+    args.append(saxJar);
     args.append(QString("-s:%1").arg(ublFileName(_url)));
-    args.append(QString("-xsl:%1").arg(XslHtml));
+    args.append(QString("-xsl:%1").arg(xslHtml));
 
     QProcess *process = new QProcess;
 

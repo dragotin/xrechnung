@@ -23,6 +23,10 @@
 #include "xrwidget.h"
 
 #include <QFile>
+#include <QFileInfo>
+#include <QMessageBox>
+#include <QTimer>
+#include <QSettings>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -36,11 +40,47 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->_mainToolBox, &QToolBox::currentChanged, this, &MainWindow::slotShowDocumentNo);
     setWindowTitle("XRechnung Viewer");
+
+    QTimer::singleShot(0, this, &MainWindow::checkConfig);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::checkConfig()
+{
+    QSettings config;
+    bool bad{false};
+
+    qDebug() << "Reading config file" << config.fileName();
+
+    const QString jar = config.value("saxon/jar").toString();
+    QFileInfo fiJar(jar);
+    if (! (fiJar.exists() && fiJar.isReadable())) {
+        bad = true;
+    }
+    const QString ubl = config.value("saxon/xslUbl").toString();
+    QFileInfo fiUbl(ubl);
+    if (! (fiUbl.exists() && fiUbl.isReadable())) {
+        bad = true;
+    }
+    const QString html = config.value("saxon/xslHtml").toString();
+    QFileInfo fiHtml(html);
+    if (! (fiHtml.exists() && fiHtml.isReadable())) {
+        bad = true;
+    }
+
+    if (bad) {
+        QMessageBox::information(this, "XRechnung Viewer", "Die konfigurierten Saxon Dateien können nicht gefunden werden.\n\n"
+                                 "Bitte legen Sie eine Konfig-Datei in ~/.config/xrview/xrview.conf an und hinterlegen Sie die Pfade"
+                                 "wie in der Dokumentation angegeben.");
+    } else {
+        config.setValue("main/lastUsage", QDateTime::currentDateTime());
+        config.sync();
+    }
+
 }
 
 void MainWindow::slotShowXRechnung(XRechnung *xr)

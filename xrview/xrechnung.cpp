@@ -22,6 +22,8 @@
 
 #include <QFile>
 #include <QProcess>
+#include <QDateTime>
+#include <QSettings>
 
 namespace {
 
@@ -74,15 +76,20 @@ QDomDocument XRechnung::domDocument() const
 
 void XRechnung::createUbl()
 {
-    const QString file{ _url.toLocalFile() };
+    QStringList args;
+    QString file{ _url.toLocalFile() };
+    QSettings config;
 
-    const QStringList args{
+    const QString saxJar = config.value("saxon/jar").toString();
+    const QString xslUBL = config.value("saxon/xslUbl").toString();
+
+    const QStringList args {
         "-jar", 
-        SaxonJar,
+        saxJar,
         QString("-s:%1").arg(file),
-        QString("-xsl:%1").arg(XslUBL),
+        QString("-xsl:%1").arg(xslUBL),
         QString("-o:%1").arg(ublFileName(_url)),
-    };
+     };
 
     QProcess *process = new QProcess;
 
@@ -116,12 +123,16 @@ void XRechnung::slotDomFinished(int /*exitCode*/, QProcess::ExitStatus /*exitSta
 void XRechnung::createHtml()
 {
     QString file{ _url.toLocalFile() };
+    QSettings config;
 
-    const QStringList args{
+    const QString saxJar = config.value("saxon/jar").toString();
+    const QString xslHtml = config.value("saxon/xslHtml").toString();
+
+    const QStringList args {
         "-jar",
-        SaxonJar,
+        saxJar,
         QString("-s:%1").arg(ublFileName(_url)),
-        QString("-xsl:%1").arg(XslHtml),
+        QString("-xsl:%1").arg(xslHtml),
     };
 
     QProcess *process = new QProcess;

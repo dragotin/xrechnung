@@ -55,10 +55,6 @@ private:
     QUrl         _url;
     QString      _html;
     QDomDocument _domDoc;
-
-    const QString SaxonJar{"/home/kf/projects/xrech2html/saxon-he-11.4.jar"};
-    const QString XslUBL{"/home/kf/projects/xrechnung-visualization/src/xsl/ubl-invoice-xr.xsl"};
-    const QString XslHtml{"/home/kf/projects/xrechnung-visualization/src/xsl/xrechnung-html.xsl"};
 };
 
 #endif // XRECHNUNG_H

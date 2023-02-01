@@ -30,6 +30,10 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+    QCoreApplication::setOrganizationName("xrview");
+    QCoreApplication::setOrganizationDomain("volle-kraft-voraus.de");
+    QCoreApplication::setApplicationName("xrview");
+
     MainWindow w;
     XRControl xrc;
 

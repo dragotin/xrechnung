@@ -7,9 +7,6 @@ project:
 build:
   cmake:
 
-scripts:
-  null:
-
 appimage:
   linuxdeploy:
     plugins:

@@ -24,6 +24,7 @@ jobs:
             "cmake(Qt5Widgets)" \
             "cmake(Qt5Xml)" \
             "cmake(Qt5Svg)" \
+            "cmake(QtWebEngineWidgets)" \
             libqt5-qtdeclarative-tools
 
       - uses: actions/checkout@v3

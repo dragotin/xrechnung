@@ -44,6 +44,9 @@ private slots:
 
 private:
 
+    const QString GeoWindow{"geometry/mainwindow"};
+    const QString GeoSplitter{"geometry/mainsplitter"};
+
     Ui::MainWindow *ui;
     QVector<XRechnung*> _xrs;
     int _maxIndx;

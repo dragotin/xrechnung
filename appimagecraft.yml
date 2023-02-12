@@ -2,10 +2,13 @@ version: 1
 
 project:
   name: de.volle_kraft_voraus.xrview.desktop
-  version_command: git describe --tags
+  version_command: cd "$PROJECT_ROOT" && git rev-parse --short HEAD
 
 build:
   cmake:
+
+scripts:
+  null:
 
 appimage:
   linuxdeploy:

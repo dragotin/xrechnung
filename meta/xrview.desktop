@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Exec=xrview %u 
+Icon=xrview
+Terminal=false
+Name=XRview
+

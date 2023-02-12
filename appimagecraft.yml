@@ -1,7 +1,7 @@
 version: 1
 
 project:
-  name: de.freisturz.opensource.desktop
+  name: de.volle_kraft_voraus.xrview.desktop
   version_command: git describe --tags
 
 build:

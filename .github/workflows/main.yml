@@ -19,12 +19,12 @@ jobs:
             wget \
             git \
             extra-cmake-modules \
-            "cmake(Qt6Core)" \
-            "cmake(Qt6Gui)" \
-            "cmake(Qt6Widgets)" \
-            "cmake(Qt6Xml)" \
-            "cmake(Qt6Svg)" \
-            "cmake(Qt6WebEngineWidgets)" \
+            "cmake(Qt6Core6" \
+            "cmake(Qt6Gui6" \
+            "cmake(Qt6Widgets6" \
+            "cmake(Qt6Xml6" \
+            "cmake(Qt6Svg6" \
+            "cmake(Qt6WebEngineWidgets6" \
             libqt5-qtdeclarative-tools
 
       - uses: actions/checkout@v3

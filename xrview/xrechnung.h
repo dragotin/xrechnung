@@ -39,6 +39,10 @@ public:
     QString value(const QString& name) const;
     QString fileName() { return _url.toLocalFile(); }
 
+    // config keys as static members
+    static QString SaxonJar;
+    static QString SaxonUbl;
+    static QString SaxonHtml;
 signals:
     void htmlAvailable();
     void domDocAvailable();

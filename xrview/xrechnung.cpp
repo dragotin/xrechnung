@@ -25,6 +25,10 @@
 #include <QDateTime>
 #include <QSettings>
 
+QString XRechnung::SaxonJar = QStringLiteral("saxon/jar");
+QString XRechnung::SaxonUbl = QStringLiteral("saxon/xslUbl");
+QString XRechnung::SaxonHtml = QStringLiteral("saxon/xslHtml");
+
 namespace {
 
 QString ublFileName(const QUrl& url)
@@ -79,8 +83,8 @@ void XRechnung::createUbl()
     QString file{ _url.toLocalFile() };
     QSettings config;
 
-    const QString saxJar = config.value("saxon/jar").toString();
-    const QString xslUBL = config.value("saxon/xslUbl").toString();
+    const QString saxJar = config.value(SaxonJar).toString();
+    const QString xslUBL = config.value(SaxonUbl).toString();
 
     const QStringList args {
         "-jar", 
@@ -124,8 +128,8 @@ void XRechnung::createHtml()
     QString file{ _url.toLocalFile() };
     QSettings config;
 
-    const QString saxJar = config.value("saxon/jar").toString();
-    const QString xslHtml = config.value("saxon/xslHtml").toString();
+    const QString saxJar = config.value(SaxonJar).toString();
+    const QString xslHtml = config.value(SaxonHtml).toString();
 
     const QStringList args {
         "-jar",

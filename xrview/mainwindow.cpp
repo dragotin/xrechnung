@@ -41,11 +41,32 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->_mainToolBox, &QToolBox::currentChanged, this, &MainWindow::slotShowDocumentNo);
     setWindowTitle("XRechnung Viewer");
 
+    // restore window geometry
+    QSettings config;
+    const auto geo = QByteArray::fromBase64(config.value(GeoWindow).toByteArray());
+    restoreGeometry(geo);
+
+    const QStringList ints = config.value(GeoSplitter).toString().split('/');
+    if (ints.size() > 1) {
+        QList<int> s {ints.at(0).toInt(), ints.at(1).toInt()};
+        ui->splitter->setSizes(s);
+    }
+
     QTimer::singleShot(0, this, &MainWindow::checkConfig);
 }
 
 MainWindow::~MainWindow()
 {
+    QSettings config;
+    const QByteArray geo = saveGeometry().toBase64();
+    config.setValue(GeoWindow, QString::fromLatin1(geo));
+
+    const QList<int> s = ui->splitter->sizes();
+    if (s.size()>1)
+        config.setValue(GeoSplitter, QString("%1/%2").arg(s.at(0)).arg(s.at(1)));
+
+    config.sync();
+
     delete ui;
 }
 
@@ -56,17 +77,17 @@ void MainWindow::checkConfig()
 
     qDebug() << "Reading config file" << config.fileName();
 
-    const QString jar = config.value("saxon/jar").toString();
+    const QString jar = config.value(XRechnung::SaxonJar).toString();
     QFileInfo fiJar(jar);
     if (! (fiJar.exists() && fiJar.isReadable())) {
         bad = true;
     }
-    const QString ubl = config.value("saxon/xslUbl").toString();
+    const QString ubl = config.value(XRechnung::SaxonUbl).toString();
     QFileInfo fiUbl(ubl);
     if (! (fiUbl.exists() && fiUbl.isReadable())) {
         bad = true;
     }
-    const QString html = config.value("saxon/xslHtml").toString();
+    const QString html = config.value(XRechnung::SaxonHtml).toString();
     QFileInfo fiHtml(html);
     if (! (fiHtml.exists() && fiHtml.isReadable())) {
         bad = true;

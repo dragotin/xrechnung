@@ -1,3 +1,6 @@
+
+**Note: This repository has been moved to https://codeberg.org/dragotin/xrechnung - Please contribute there!**
+
 # XRechnung
 
 Some utilities around the XRechnung Standard that is used in Germany and other countries for electronic invoicing.
